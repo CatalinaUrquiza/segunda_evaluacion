@@ -45,8 +45,7 @@ function NoticiaBlog({ titulo, resumen, imagen, tituloDetalle, detalle }: Notici
                 <div className="col-md-6 order-1 order-md-2">
                     <img
                         src={imagen}
-                        className="img-fluid rounded"
-                        style={{ width: '100%', height: '350px', objectFit: 'cover' }}
+                        className="img-blog-fija"
                         alt="Imagen No Disponible"
                     />
                 </div>

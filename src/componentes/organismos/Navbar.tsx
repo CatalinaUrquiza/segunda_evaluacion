@@ -11,12 +11,11 @@ function Navbar() {
                     className="navbar-brand text-white d-flex align-items-center"
                     to="/"
                 >
-                    <img
-                        src="/img/Solo_Logo_Barra.png"
-                        className="img-logo-barra me-2"
-                        alt="Logo Ferretería"
-                        style={{ height: '40px' }}
-                    />
+                <img
+                    src="/img/Solo_Logo_Barra.png"
+                    className="img-logo-barra me-2"
+                    alt="Logo Ferretería"
+                />
                     Ferretería Los Maestros
                 </Link>
 

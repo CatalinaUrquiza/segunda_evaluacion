@@ -3,7 +3,7 @@ function Inicio(){
     return(
         <div className = "container mt-4">
 
-            <h1>Inicio</h1>
+            <h2>Inicio</h2>
             <p>
                 Bienvenido a nuestra tienda.
             </p>

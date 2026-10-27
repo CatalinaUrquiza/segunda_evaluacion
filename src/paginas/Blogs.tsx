@@ -7,7 +7,7 @@ function Blogs() {
 
             {/* Título Principal */}
             <div className="text-center mb-5">
-                <h2 className="fw-bold text-uppercase">Noticias Importantes</h2>
+                <h2>Noticias Importantes</h2>
             </div>
 
             <NoticiaBlog

@@ -15,8 +15,8 @@ function Contacto() {
                     {/* Tarjeta con sombra y espacio interior */}
                     <div className="card shadow-sm p-4">
 
-                        {/* Margen inferior del titulo */}
-                        <h2 className="mb-4">Formulario de contacto</h2>
+                        {/* Título centrado con margen inferior */}
+                        <h2 className="mb-4 text-center">Formulario de contacto</h2>
 
                         <FormularioContacto />
 
@@ -24,8 +24,6 @@ function Contacto() {
                 </div>
             </div>
         </div>
-
-
     );
 }
 

@@ -16,17 +16,13 @@ function CardProducto({ id, titulo, precio, imagen }: CardProps) {
 
                 <img
                     src={imagen}
-                    className="card-img-top p-2"
+                    className="card-img-top p-2 img-card-producto"
                     alt={titulo}
-                    style={{ height: '200px', objectFit: 'contain' }}
                 />
 
                 <div className="card-body d-flex flex-column">
 
-                    <h5
-                        className="card-title"
-                        style={{ minHeight: '84px' }}
-                    >
+                    <h5 className="card-title titulo-card-producto">
                         {titulo}
                     </h5>
 
@@ -34,6 +30,7 @@ function CardProducto({ id, titulo, precio, imagen }: CardProps) {
                         ${precio}
                     </p>
 
+                    {/* Empuja el botón hacia abajo para alinear todos los botones */}
                     <div className="mt-auto">
                         <Boton id={id} />
                     </div>
