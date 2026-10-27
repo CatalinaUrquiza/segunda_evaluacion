@@ -7,10 +7,18 @@ function Navbar() {
         <nav className = "navbar navbar-expand bg-dark">
 
             <div className = "container">
-
-                <span className = "navbar-brand text-white">
-                    Mi Tienda
-                </span>
+                <Link
+                    className="navbar-brand text-white d-flex align-items-center"
+                    to="/"
+                >
+                    <img
+                        src="/img/Solo_Logo_Barra.png"
+                        className="img-logo-barra me-2"
+                        alt="Logo Ferretería"
+                        style={{ height: '40px' }}
+                    />
+                    Ferretería Los Maestros
+                </Link>
 
                 <div className = "navbar-nav">
 
