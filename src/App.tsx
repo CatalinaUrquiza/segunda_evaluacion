@@ -6,6 +6,7 @@ import QuienesSomos from './paginas/quienesSomos'
 import Contacto from './paginas/Contacto'
 import DetalleProducto from './paginas/DetalleProducto'
 import Login from './paginas/Login'
+import Blogs from './paginas/Blogs'
 
 function App() {
 
@@ -38,6 +39,11 @@ function App() {
         <Route
           path = "/login"
           element = {<Login />}
+        />
+
+         <Route
+          path = "/blogs"
+          element = {<Blogs />}
         />
 
         {/* Ruta dinamica para mostrar el detalle segun el id del producto */}
