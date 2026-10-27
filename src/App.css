@@ -46,3 +46,27 @@ h2 {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.2s;
 }
+
+/* ===== Cards de categorías (Inicio) ===== */
+.categoria-card {
+    overflow: hidden;
+}
+
+.categoria-card img {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.categoria-card:hover img {
+    transform: scale(1.05);
+}
+
+.categoria-overlay {
+    background-color: rgba(0, 0, 0, 0.45); /* oscurece la foto para que se lea el texto */
+}
+
+/* ===== Carrusel ===== */
+.carrusel-contenedor {
+    max-width: 900px;
+}
