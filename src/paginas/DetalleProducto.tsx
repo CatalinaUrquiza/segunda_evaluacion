@@ -3,7 +3,7 @@ import BotonVolver from '../componentes/atomos/BotonVolver'
 
 const productos = [
     {
-        id: 1,
+        id: "1",
         titulo: "Notebook",
         descripcion: "Notebook ideal para estudiar y trabajar.",
         precio: 400990,
@@ -11,7 +11,7 @@ const productos = [
 
     },
     {
-        id: 2,
+        id: "2",
         titulo: "Mouse",
         descripcion: "Mouse inalámbrico.",
         precio: 19990,
@@ -19,7 +19,7 @@ const productos = [
 
     },
     {
-        id: 3,
+        id: "3",
         titulo: "Teclado",
         descripcion: "Teclado mecánico.",
         precio: 39990,
@@ -27,7 +27,7 @@ const productos = [
 
     },
     {
-        id: 4,
+        id: "4",
         titulo: "Audífonos",
         descripcion: "Audífonos inalámbricos",
         precio: 44490,
@@ -44,7 +44,7 @@ function DetalleProducto(){
 
     // Buscamos el producto que corresponde al ID recibido
     const producto = productos.find(
-        producto => producto.id === Number(id)
+        producto => producto.id === id
     )
 
     return (

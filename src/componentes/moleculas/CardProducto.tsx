@@ -1,50 +1,49 @@
 import Boton from '../atomos/Boton'
 
 interface CardProps {
-    id: number;
+    id: string;
     titulo: string;
-    descripcion: string;
     precio: number;
     imagen: string;
 }
 
-function CardProducto({ id, titulo, descripcion, precio, imagen }: CardProps) {
+function CardProducto({ id, titulo, precio, imagen }: CardProps) {
 
     return (
-        <div className = "card" style = {{ width: '20rem' }}>
+        <div className="col">
 
-            <img
-                src = {imagen}
-                className = "card img top"
-                alt = {titulo}
-                style = {{ height: '200px', objectFit: 'contain'}}
-            />
+            <div className="card h-100 text-center">
 
-            {/* Contenido de forma vertical */}
-            <div className = "card-body d-flex flex-column">
+                <img
+                    src={imagen}
+                    className="card-img-top p-2"
+                    alt={titulo}
+                    style={{ height: '200px', objectFit: 'contain' }}
+                />
 
-                <h5 className = "card-body">
-                    {titulo}
-                </h5>
+                <div className="card-body d-flex flex-column">
 
-                <p className = "card-text">
-                    {descripcion}
-                </p>
+                    <h5
+                        className="card-title"
+                        style={{ minHeight: '84px' }}
+                    >
+                        {titulo}
+                    </h5>
 
-                <p className = "card-text">
-                    ${precio}
-                </p>
+                    <p className="card-text">
+                        ${precio}
+                    </p>
 
-                {/* Empuja el boton hacia abajo para mantener todos los botones alineados */}
-                <div className = "mt-auto">
-                    <Boton id = {id}/>
+                    <div className="mt-auto">
+                        <Boton id={id} />
+                    </div>
+
                 </div>
-            
+
             </div>
 
         </div>
-
     )
-    
 }
+
 export default CardProducto

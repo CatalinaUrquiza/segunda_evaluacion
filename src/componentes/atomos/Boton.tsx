@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 interface BotonProps {
-    id: number;
+    id: string;
 }
 
 function Boton({ id }: BotonProps){
