@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom'
 import Boton from '../atomos/Boton'
 
 interface CardProps {
@@ -7,7 +8,29 @@ interface CardProps {
     imagen: string;
 }
 
+// Prefijos de ID que pertenecen a cada categoría
+const categorias: { [categoria: string]: string[] } = {
+    construccion: ["MC"],
+    pinturas: ["PT"],
+    herramientas: ["HM", "HE"],
+    gasfiteria: ["GS"],
+    electricidad: ["EL"],
+    tornilleria: ["TR"],
+    madera: ["MD"],
+    seguridad: ["SE"],
+    jardin: ["JA"]
+}
+
 function CardProducto({ id, titulo, precio, imagen }: CardProps) {
+
+    // Lee la categoría de la URL (por ejemplo /productos?cat=pinturas)
+    const [params] = useSearchParams()
+    const categoria = params.get("cat")
+
+    // Si hay una categoría válida y este producto no es de ella, no se muestra
+    if (categoria && categorias[categoria] && !categorias[categoria].includes(id.slice(0, 2))) {
+        return null
+    }
 
     return (
         <div className="col">
