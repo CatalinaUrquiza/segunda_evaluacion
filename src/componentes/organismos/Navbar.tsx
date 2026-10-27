@@ -44,6 +44,14 @@ function Navbar() {
                     <Link className = "nav-link text-white" to = "/login">
                         Login
                     </Link>
+
+                    <Link className="nav-link" to="/carrito">
+                        <img
+                            src="/img/Carrito_Icono.png"
+                            className="img-carrito"
+                            alt="Carrito"
+                        />
+                    </Link>
                 
                 </div>
 

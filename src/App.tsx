@@ -7,6 +7,7 @@ import Contacto from './paginas/Contacto'
 import DetalleProducto from './paginas/DetalleProducto'
 import Login from './paginas/Login'
 import Blogs from './paginas/Blogs'
+import Carrito from './paginas/Carrito'
 
 function App() {
 
@@ -41,9 +42,14 @@ function App() {
           element = {<Login />}
         />
 
-         <Route
+        <Route
           path = "/blogs"
           element = {<Blogs />}
+        />
+
+        <Route
+          path = "/carrito"
+          element = {<Carrito />}
         />
 
         {/* Ruta dinamica para mostrar el detalle segun el id del producto */}
