@@ -1,11 +1,32 @@
+import { useSearchParams } from 'react-router-dom'
 import CardProducto from '../componentes/moleculas/CardProducto'
 
+// Nombre que se muestra como título para cada categoría
+const titulosCategorias: { [categoria: string]: string } = {
+    construccion: "Materiales de Construcción",
+    pinturas: "Pinturas",
+    herramientas: "Herramientas",
+    gasfiteria: "Gasfitería",
+    electricidad: "Electricidad",
+    tornilleria: "Tornillería",
+    madera: "Madera",
+    seguridad: "Seguridad",
+    jardin: "Jardín"
+}
+
 function Productos() {
+
+    // Lee la categoría de la URL (por ejemplo /productos?cat=pinturas)
+    const [params] = useSearchParams()
+    const categoria = params.get("cat")
+
+    // Si hay categoría válida usa su nombre, si no, muestra "Productos"
+    const titulo = categoria && titulosCategorias[categoria] ? titulosCategorias[categoria] : "Productos"
 
     return(
         <div className = "container mt-4">
 
-            <h2>Productos</h2>
+            <h2>{titulo}</h2>
             
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
 
