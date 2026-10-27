@@ -26,6 +26,10 @@ function Navbar() {
                         Quiénes Somos
                     </Link>
 
+                    <Link className = "nav-link text-white" to = "/blogs">
+                        Blogs
+                    </Link>
+
                     <Link className = "nav-link text-white" to = "/contacto">
                         Contacto
                     </Link>
