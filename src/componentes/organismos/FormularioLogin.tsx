@@ -1,38 +1,54 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CampoFormulario from "../moleculas/CampoFormulario";
+import { obtenerUsuarios } from "../../datos/usuarios";
+import { validarCorreo } from "../../utils/validaciones";
 
 function FormularioLogin(){
+
+    const navigate = useNavigate();
 
     const [correo, setCorreo] = useState("");
     const [contrasena, setContrasena] = useState("");
 
-    // Valida los datos al enviar el formulario
     const manejarEnvio = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault(); // Evita recargar la pagina
-
-        if (contrasena.trim() === ""){
-            alert("Debe ingresar una contraseña");
-            return;
-        }
-
-        if (contrasena.length < 8) {
-            alert("Ingrese una contraseña válida");
-            return;
-        }
 
         if (correo.trim() === ""){
             alert("Debe ingresar su correo");
             return;
         }
 
-        // Comprueba que el correo tenga un formato válido
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
-            alert("Ingrese un correo válido");
+        if (!validarCorreo(correo)) {
+            alert("Sólo se permiten correos @duoc.cl, @profesor.duoc.cl o @gmail.com");
             return;
         }
 
-        alert("Sesión iniciada con éxito");
+        if (contrasena.trim() === ""){
+            alert("Debe ingresar una contraseña");
+            return;
+        }
 
+        if (contrasena.length < 4 || contrasena.length > 10) {
+            alert("La contraseña debe tener entre 4 y 10 caracteres");
+            return;
+        }
+
+        // Busca al usuario en la base de datos (prueba + registrados)
+        const usuario = obtenerUsuarios().find(
+            u => u.correo === correo && u.clave === contrasena
+        );
+
+        if (!usuario) {
+            alert("Correo o contraseña incorrectos");
+            return;
+        }
+
+        // Guarda quién inició sesión
+        localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
+
+        alert(`¡Bienvenid@, ${usuario.rol}!`);
+        navigate("/");
     };
 
     return(
@@ -44,16 +60,14 @@ function FormularioLogin(){
                 nombre="correo"
                 valor = {correo}
                 alCambiar={setCorreo}
-                
             />
 
             <CampoFormulario
                 etiqueta="Contraseña"
-                tipo="contrasena"
+                tipo="password"
                 nombre="contrasena"
                 valor = {contrasena}
                 alCambiar={setContrasena}
-                
             />
 
             <button type="submit" className="btn btn-primary">

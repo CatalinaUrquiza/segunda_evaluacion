@@ -9,6 +9,7 @@ import Login from './paginas/Login'
 import Blogs from './paginas/Blogs'
 import Carrito from './paginas/Carrito'
 import Ofertas from './paginas/Ofertas'
+import Registro from './paginas/Registro'
 
 function App() {
 
@@ -56,6 +57,11 @@ function App() {
         <Route
           path = "/ofertas"
           element = {<Ofertas />}
+        />
+
+        <Route
+          path = "/registro"
+          element = {<Registro />}
         />
 
         {/* Ruta dinamica para mostrar el detalle segun el id del producto */}
