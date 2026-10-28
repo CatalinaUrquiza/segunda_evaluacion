@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BotonVolver from '../componentes/atomos/BotonVolver'
 import BotonAgregar from '../componentes/atomos/BotonAgregar'
-import { productos } from '../datos/productos'
+import { obtenerProductos } from '../datos/productos'
 
 function DetalleProducto() {
+
+    const productos = obtenerProductos()
 
     // Obtenemos el ID que viene de la URL
     const { id } = useParams()

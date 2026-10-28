@@ -11,6 +11,7 @@ interface CardProps {
 function CardProducto({ id, titulo, precio, precioOferta, imagen }: CardProps) {
 
     // Porcentaje de descuento (solo si hay oferta)
+    
     const descuento = precioOferta ? Math.round((1 - precioOferta / precio) * 100) : 0
 
     return (

@@ -23,6 +23,7 @@ function CampoFormulario({ etiqueta, tipo, nombre, valor, alCambiar }: Props) {
             />
         </div>
     );
+    
 }
 
 export default CampoFormulario;

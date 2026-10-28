@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 import CardProducto from '../componentes/moleculas/CardProducto'
-import { productos } from '../datos/productos'
+import { obtenerProductos } from '../datos/productos'
 
 // Nombre que se muestra como título para cada categoría
 const titulosCategorias: { [categoria: string]: string } = {
@@ -16,6 +16,8 @@ const titulosCategorias: { [categoria: string]: string } = {
 }
 
 function Productos() {
+
+    const productos = obtenerProductos()
 
     // Lee la categoría de la URL (por ejemplo /productos?cat=pinturas)
     const [params] = useSearchParams()

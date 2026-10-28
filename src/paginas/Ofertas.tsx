@@ -1,7 +1,9 @@
 import CardProducto from '../componentes/moleculas/CardProducto'
-import { productos } from '../datos/productos'
+import { obtenerProductos } from '../datos/productos'
 
 function Ofertas() {
+
+    const productos = obtenerProductos()
 
     // Solo los productos que tienen precio de oferta
     const enOferta = productos.filter(p => p.precioOferta)
