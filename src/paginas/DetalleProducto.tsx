@@ -35,6 +35,7 @@ function DetalleProducto() {
         const guardado = localStorage.getItem('carritoFerreteria')
         const carrito = guardado ? JSON.parse(guardado) : []
 
+        // Si el producto ya está en el carrito, solo suma la cantidad
         const existente = carrito.find((item: { id: string }) => item.id === producto.id)
 
         if (existente) {
@@ -61,6 +62,7 @@ function DetalleProducto() {
 
                 <div className="row align-items-center">
 
+                    {/* Imagen a la izquierda */}
                     <div className="col-md-6 text-center mb-4 mb-md-0">
                         <img
                             src={producto.imagen}
@@ -69,6 +71,7 @@ function DetalleProducto() {
                         />
                     </div>
 
+                    {/* Información a la derecha */}
                     <div className="col-md-6">
 
                         <p className="text-muted mb-1">Código: {producto.id}</p>
@@ -94,6 +97,7 @@ function DetalleProducto() {
                             <li>Unidad de venta: {producto.unidad}</li>
                         </ul>
 
+                        {/* Cantidad */}
                         <div className="d-flex align-items-center gap-3 my-4">
                             <label htmlFor="cantidad" className="fw-bold">Cantidad</label>
                             <input

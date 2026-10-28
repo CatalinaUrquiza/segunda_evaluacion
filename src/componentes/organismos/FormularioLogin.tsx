@@ -48,7 +48,13 @@ function FormularioLogin(){
         localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
 
         alert(`¡Bienvenid@, ${usuario.rol}!`);
-        navigate("/");
+
+        // El administrador va a su panel; los demás, al inicio
+        if (usuario.rol === "Administrador") {
+            navigate("/admin");
+        } else {
+            navigate("/");
+        }
     };
 
     return(

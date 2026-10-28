@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Inicio from './paginas/Inicio'
 import Productos from './paginas/Productos'
 import Navbar from './componentes/organismos/Navbar'
@@ -6,16 +6,24 @@ import QuienesSomos from './paginas/quienesSomos'
 import Contacto from './paginas/Contacto'
 import DetalleProducto from './paginas/DetalleProducto'
 import Login from './paginas/Login'
+import Registro from './paginas/Registro'
 import Blogs from './paginas/Blogs'
 import Carrito from './paginas/Carrito'
 import Ofertas from './paginas/Ofertas'
-import Registro from './paginas/Registro'
+import AdminLayout from './paginas/admin/AdminLayout'
+import AdminDashboard from './paginas/admin/AdminDashboard'
+import AdminProductos from './paginas/admin/AdminProductos'
+import AdminProductoForm from './paginas/admin/AdminProductoForm'
 
 function App() {
 
+  // En el panel de administración no se muestra la Navbar de la tienda
+  const { pathname } = useLocation()
+  const enAdmin = pathname.startsWith('/admin')
+
   return (
     <>
-      <Navbar />
+      {!enAdmin && <Navbar />}
 
       <Routes>
 
@@ -27,6 +35,11 @@ function App() {
         <Route
           path = "/productos"
           element = {<Productos />}
+        />
+
+        <Route
+          path = "/ofertas"
+          element = {<Ofertas />}
         />
 
         <Route
@@ -45,6 +58,11 @@ function App() {
         />
 
         <Route
+          path = "/registro"
+          element = {<Registro />}
+        />
+
+        <Route
           path = "/blogs"
           element = {<Blogs />}
         />
@@ -54,20 +72,19 @@ function App() {
           element = {<Carrito />}
         />
 
-        <Route
-          path = "/ofertas"
-          element = {<Ofertas />}
-        />
-
-        <Route
-          path = "/registro"
-          element = {<Registro />}
-        />
-
         {/* Ruta dinamica para mostrar el detalle segun el id del producto */}
-        <Route path = "/producto/:id"
-        element = {<DetalleProducto />}
+        <Route
+          path = "/producto/:id"
+          element = {<DetalleProducto />}
         />
+
+        {/* Panel de administración */}
+        <Route path = "/admin" element = {<AdminLayout />}>
+          <Route index element = {<AdminDashboard />} />
+          <Route path = "productos" element = {<AdminProductos />} />
+          <Route path = "productos/nuevo" element = {<AdminProductoForm />} />
+          <Route path = "productos/editar/:id" element = {<AdminProductoForm />} />
+        </Route>
 
       </Routes>
     </>
