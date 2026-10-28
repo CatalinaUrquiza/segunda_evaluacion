@@ -107,3 +107,44 @@ const productosIniciales = [
     { id: "JA004", nombre: "Pala punta redonda #2 con mango", precio: 10990, marca: "Corona", categoria: "jardin", subcategoria: "Herramientas", unidad: "Unidad", imagen: "/img/JA004.webp" },
     { id: "JA005", nombre: "Rastrillo 16 dientes con mango", precio: 9490, marca: "Corona", categoria: "jardin", subcategoria: "Herramientas", unidad: "Unidad", imagen: "/img/JA005.webp" }
 ]
+
+// ===== CRUD de productos (se guardan en localStorage) =====
+const CLAVE = 'productosFerreteria'
+
+// Leer todos. Si aún no se ha editado nada, parte de la lista inicial.
+// A cada producto sin stock definido se le asigna uno por defecto.
+/** @returns {any[]} */
+export function obtenerProductos() {
+    const guardado = localStorage.getItem(CLAVE)
+    if (guardado) {
+        return JSON.parse(guardado)
+    }
+    return productosIniciales.map(p => ({ stock: 20, stockCritico: 5, ...p }))
+}
+
+function guardarProductos(lista) {
+    localStorage.setItem(CLAVE, JSON.stringify(lista))
+}
+
+// Leer uno
+export function obtenerProducto(id) {
+    return obtenerProductos().find(p => p.id === id)
+}
+
+// Crear
+export function crearProducto(producto) {
+    const lista = obtenerProductos()
+    lista.push(producto)
+    guardarProductos(lista)
+}
+
+// Actualizar
+export function actualizarProducto(id, cambios) {
+    const lista = obtenerProductos().map(p => p.id === id ? { ...p, ...cambios } : p)
+    guardarProductos(lista)
+}
+
+// Eliminar
+export function eliminarProducto(id) {
+    guardarProductos(obtenerProductos().filter(p => p.id !== id))
+}
