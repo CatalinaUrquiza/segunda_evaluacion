@@ -1,30 +1,19 @@
 import { useSearchParams } from 'react-router-dom'
 import CardProducto from '../componentes/moleculas/CardProducto'
 import { obtenerProductos } from '../datos/productos'
-
-// Nombre que se muestra como título para cada categoría
-const titulosCategorias: { [categoria: string]: string } = {
-    construccion: "Materiales de Construcción",
-    pinturas: "Pinturas",
-    herramientas: "Herramientas",
-    gasfiteria: "Gasfitería",
-    electricidad: "Electricidad",
-    tornilleria: "Tornillería",
-    madera: "Madera",
-    seguridad: "Seguridad",
-    jardin: "Jardín"
-}
+import { obtenerCategorias } from '../datos/categorias'
 
 function Productos() {
 
     const productos = obtenerProductos()
+    
 
     // Lee la categoría de la URL (por ejemplo /productos?cat=pinturas)
     const [params] = useSearchParams()
     const categoria = params.get("cat")
 
-    // Título según la categoría
-    const titulo = categoria && titulosCategorias[categoria] ? titulosCategorias[categoria] : "Productos"
+    const categoriaActual = obtenerCategorias().find((c: { id: string }) => c.id === categoria)
+    const titulo = categoriaActual ? categoriaActual.nombre : "Productos"
 
     // Si hay categoría, se filtra; si no, se muestran todos
     const lista = categoria

@@ -23,3 +23,24 @@ export function guardarUsuario(usuario) {
     registrados.push(usuario)
     localStorage.setItem('usuariosRegistrados', JSON.stringify(registrados))
 }
+
+export const roles = ['Administrador', 'Vendedor', 'Cliente']
+
+export function buscarUsuario(correo) {
+    return obtenerUsuarios().find(u => u.correo === correo)
+}
+
+// Los usuarios de prueba no se pueden editar ni eliminar
+export function esDePrueba(correo) {
+    return usuariosPrueba.some(u => u.correo === correo)
+}
+
+export function actualizarUsuario(correo, datos) {
+    const registrados = obtenerRegistrados().map(u => u.correo === correo ? { ...u, ...datos } : u)
+    localStorage.setItem('usuariosRegistrados', JSON.stringify(registrados))
+}
+
+export function eliminarUsuario(correo) {
+    const registrados = obtenerRegistrados().filter(u => u.correo !== correo)
+    localStorage.setItem('usuariosRegistrados', JSON.stringify(registrados))
+}

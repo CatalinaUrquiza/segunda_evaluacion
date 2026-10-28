@@ -16,6 +16,11 @@ import AdminProductos from './paginas/admin/AdminProductos'
 import AdminProductoForm from './paginas/admin/AdminProductoForm'
 import AdminOrdenes from './paginas/admin/AdminOrdenes'
 import AdminBoleta from './paginas/admin/AdminBoleta'
+import AdminCategorias from './paginas/admin/AdminCategorias'
+import AdminCategoriaForm from './paginas/admin/AdminCategoriaForm'
+import AdminUsuarios from './paginas/admin/AdminUsuarios'
+import AdminUsuarioForm from './paginas/admin/AdminUsuarioForm'
+import AdminUsuarioDetalle from './paginas/admin/AdminUsuarioDetalle'
 
 <Route path="/admin" element={<AdminLayout />}>
     <Route index element={<AdminDashboard />} />
@@ -97,7 +102,20 @@ function App() {
           <Route path = "productos" element = {<AdminProductos />} />
           <Route path = "productos/nuevo" element = {<AdminProductoForm />} />
           <Route path = "productos/editar/:id" element = {<AdminProductoForm />} />
+
+          {/* Categorías */}
+          <Route path="categorias" element={<AdminCategorias />} />
+          <Route path="categorias/nueva" element={<AdminCategoriaForm />} />
+          <Route path="categorias/editar/:id" element={<AdminCategoriaForm />} />
+
+          {/* Usuarios */}
+          <Route path="usuarios" element={<AdminUsuarios />} />
+          <Route path="usuarios/nuevo" element={<AdminUsuarioForm />} />
+          <Route path="usuarios/editar/:correo" element={<AdminUsuarioForm />} />
+          <Route path="usuarios/:correo" element={<AdminUsuarioDetalle />} />
         </Route>
+
+        
 
       </Routes>
     </>

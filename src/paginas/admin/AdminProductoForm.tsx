@@ -3,12 +3,12 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import CampoFormulario from '../../componentes/moleculas/CampoFormulario'
 import CampoSelect from '../../componentes/moleculas/CampoSelect'
 import { obtenerProducto, crearProducto, actualizarProducto } from '../../datos/productos'
-
-const categorias = ["construccion", "pinturas", "herramientas", "gasfiteria", "electricidad", "tornilleria", "madera", "seguridad", "jardin"]
+import { obtenerCategorias } from '../../datos/categorias'
 
 function AdminProductoForm() {
 
     const navigate = useNavigate()
+    const categorias = obtenerCategorias().map((c: { id: string }) => c.id)
 
     // Si la URL trae un id, estamos editando; si no, creando
     const { id } = useParams()
