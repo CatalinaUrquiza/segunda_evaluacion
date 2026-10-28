@@ -14,6 +14,19 @@ import AdminLayout from './paginas/admin/AdminLayout'
 import AdminDashboard from './paginas/admin/AdminDashboard'
 import AdminProductos from './paginas/admin/AdminProductos'
 import AdminProductoForm from './paginas/admin/AdminProductoForm'
+import AdminOrdenes from './paginas/admin/AdminOrdenes'
+import AdminBoleta from './paginas/admin/AdminBoleta'
+
+<Route path="/admin" element={<AdminLayout />}>
+    <Route index element={<AdminDashboard />} />
+    <Route path="productos" element={<AdminProductos />} />
+    <Route path="productos/nuevo" element={<AdminProductoForm />} />
+    <Route path="productos/editar/:id" element={<AdminProductoForm />} />
+
+    {/* Nuevas */}
+    <Route path="ordenes" element={<AdminOrdenes />} />
+    <Route path="ordenes/:numero" element={<AdminBoleta />} />
+</Route>
 
 function App() {
 
