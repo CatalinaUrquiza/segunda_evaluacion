@@ -1,6 +1,6 @@
 // Base de datos simulada que pide la pauta
 
-export const productos = [
+const productosIniciales = [
 
     // ===== Materiales de construcción =====
     { id: "MC001", nombre: "Cemento Polpaico gris 25 kg", precio: 5990, precioOferta: 4990, marca: "Polpaico", categoria: "construccion", subcategoria: "Cementos", unidad: "Saco", imagen: "/img/MC001.webp" },
