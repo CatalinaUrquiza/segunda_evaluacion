@@ -24,6 +24,8 @@ import AdminCategoriaForm from './paginas/admin/AdminCategoriaForm'
 import Checkout from './paginas/Checkout'
 import PagoCorrecto from './paginas/PagoCorrecto'
 import PagoError from './paginas/PagoError'
+import AdminReportes from './paginas/admin/AdminReportes'
+import AdminPerfil from './paginas/admin/AdminPerfil'
 
 function App() {
 
@@ -123,6 +125,9 @@ function App() {
           <Route path = "categorias" element = {<AdminCategorias />} />
           <Route path = "categorias/nueva" element = {<AdminCategoriaForm />} />
           <Route path = "categorias/editar/:id" element = {<AdminCategoriaForm />} />
+
+          <Route path = "reportes" element = {<AdminReportes />} />
+          <Route path = "perfil" element = {<AdminPerfil />} />
         </Route>
 
       </Routes>
