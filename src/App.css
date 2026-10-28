@@ -70,3 +70,29 @@ h2 {
 .carrusel-contenedor {
     max-width: 900px;
 }
+
+/* ===== Detalle de producto ===== */
+.img-detalle-producto {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.detalle-titulo {
+    text-align: left;
+}
+
+.precio-detalle {
+    color: #ff6600;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.titulo-especificaciones {
+    color: #003366;
+    font-weight: 600;
+}
+
+.ancho-cantidad-detalle {
+    width: 90px;
+}

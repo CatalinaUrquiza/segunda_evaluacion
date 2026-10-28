@@ -1,72 +1,220 @@
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BotonVolver from '../componentes/atomos/BotonVolver'
 
 const productos = [
-    {
-        id: "1",
-        titulo: "Notebook",
-        descripcion: "Notebook ideal para estudiar y trabajar.",
-        precio: 400990,
-        imagen: "/img/notebook.webp"
+    { id: "MC001", nombre: "Cemento Polpaico gris 25 kg", precio: 5990, marca: "Polpaico", categoria: "Mat. Construcción", subcategoria: "Cementos", unidad: "Saco", imagen: "/img/MC001.webp" },
+    { id: "MC002", nombre: "Cemento Melón blanco 25 kg", precio: 7490, marca: "Melón", categoria: "Mat. Construcción", subcategoria: "Cementos", unidad: "Saco", imagen: "/img/MC002.jpg" },
+    { id: "MC003", nombre: "Mortero cola cerámica 25 kg", precio: 5200, marca: "Volcán", categoria: "Mat. Construcción", subcategoria: "Morteros", unidad: "Saco", imagen: "/img/MC003.avif" },
+    { id: "MC004", nombre: "Mortero nivelador piso 25 kg", precio: 6490, marca: "Weber", categoria: "Mat. Construcción", subcategoria: "Morteros", unidad: "Saco", imagen: "/img/MC004.webp" },
+    { id: "MC005", nombre: "Arena fina construcción 25 kg", precio: 1800, marca: "Granel", categoria: "Mat. Construcción", subcategoria: "Áridos", unidad: "Saco", imagen: "/img/MC005.webp" },
+    { id: "MC006", nombre: "Ripio 25 kg", precio: 1500, marca: "Granel", categoria: "Mat. Construcción", subcategoria: "Áridos", unidad: "Saco", imagen: "/img/MC006.webp" },
+    { id: "MC007", nombre: "Ladrillo fiscal N°5", precio: 380, marca: "Local", categoria: "Mat. Construcción", subcategoria: "Ladrillos", unidad: "Unidad", imagen: "/img/MC007.jpg" },
+    { id: "MC008", nombre: "Ladrillo prensado 6x14x29 cm", precio: 550, marca: "Melón", categoria: "Mat. Construcción", subcategoria: "Ladrillos", unidad: "Unidad", imagen: "/img/MC008.webp" },
+    { id: "MC009", nombre: "Bloque de hormigón 19x19x39 cm", precio: 1200, marca: "Volcán", categoria: "Mat. Construcción", subcategoria: "Bloques", unidad: "Unidad", imagen: "/img/MC009.webp" },
+    { id: "MC010", nombre: "Bloque liviano 10x20x40 cm", precio: 1690, marca: "Ytong", categoria: "Mat. Construcción", subcategoria: "Bloques", unidad: "Unidad", imagen: "/img/MC010.jpg" },
 
-    },
-    {
-        id: "2",
-        titulo: "Mouse",
-        descripcion: "Mouse inalámbrico.",
-        precio: 19990,
-        imagen: "/img/mouse.jpg"
+    { id: "PT001", nombre: "Pintura látex interior 1 galón blanco", precio: 9990, marca: "Sipa", categoria: "Pinturas", subcategoria: "Látex", unidad: "Galón", imagen: "/img/PT001.webp" },
+    { id: "PT002", nombre: "Pintura látex interior 4 litros (varios col.)", precio: 12990, marca: "Sipa", categoria: "Pinturas", subcategoria: "Látex", unidad: "Envase 4L", imagen: "/img/PT002.webp" },
+    { id: "PT003", nombre: "Pintura látex exterior 1 galón blanco", precio: 13990, marca: "Kömex", categoria: "Pinturas", subcategoria: "Látex", unidad: "Galón", imagen: "/img/PT003.webp" },
+    { id: "PT004", nombre: "Esmalte sintético 1/4 litro (varios col.)", precio: 4290, marca: "Sipa", categoria: "Pinturas", subcategoria: "Esmalte", unidad: "1/4 L", imagen: "/img/PT004.webp" },
+    { id: "PT005", nombre: "Esmalte sintético 1 litro (varios col.)", precio: 9490, marca: "Sipa", categoria: "Pinturas", subcategoria: "Esmalte", unidad: "1 litro", imagen: "/img/PT005.jpg" },
+    { id: "PT006", nombre: "Pintura antihumedad 1 galón blanco", precio: 17990, marca: "Kömex", categoria: "Pinturas", subcategoria: "Antihumedad", unidad: "Galón", imagen: "/img/PT006.webp" },
+    { id: "PT007", nombre: "Rodillo lana 23 cm con mango", precio: 3990, marca: "Wurth", categoria: "Pinturas", subcategoria: "Accesorios", unidad: "Unidad", imagen: "/img/PT007.webp" },
+    { id: "PT008", nombre: "Brocha cerda natural 3", precio: 1690, marca: "Sipa", categoria: "Pinturas", subcategoria: "Accesorios", unidad: "Unidad", imagen: "/img/PT008.webp" },
+    { id: "PT009", nombre: "Cinta de enmascarar 24mm x 50m", precio: 2490, marca: "3M", categoria: "Pinturas", subcategoria: "Accesorios", unidad: "Rollo", imagen: "/img/PT009.webp" },
 
-    },
-    {
-        id: "3",
-        titulo: "Teclado",
-        descripcion: "Teclado mecánico.",
-        precio: 39990,
-        imagen: "/img/teclado.jpg"
+    { id: "HM001", nombre: "Martillo carpintero 500g", precio: 7990, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM001.webp" },
+    { id: "HM002", nombre: "Alicate universal 8", precio: 7290, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM002.webp" },
+    { id: "HM003", nombre: "Destornillador plano 6x100mm", precio: 1990, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM003.webp" },
+    { id: "HM004", nombre: "Destornillador Phillips PH2 6x100mm", precio: 1990, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM004.webp" },
+    { id: "HM005", nombre: "Llave ajustable 10", precio: 8490, marca: "Bahco", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM005.webp" },
+    { id: "HM006", nombre: "Juego llaves hexagonales métrico x9", precio: 5490, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Set", imagen: "/img/HM006.webp" },
+    { id: "HM007", nombre: "Serrucho 20' 7 dientes por pulgada", precio: 9490, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM007.webp" },
+    { id: "HM008", nombre: "Nivel de burbuja 60 cm", precio: 10490, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM008.webp" },
+    { id: "HM009", nombre: "Metro de tela 5m", precio: 4290, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM009.webp" },
+    { id: "HM010", nombre: "Cinta métrica 8m autoblocante", precio: 6490, marca: "Stanley", categoria: "Herramientas", subcategoria: "Manuales", unidad: "Unidad", imagen: "/img/HM010.webp" },
 
-    },
-    {
-        id: "4",
-        titulo: "Audífonos",
-        descripcion: "Audífonos inalámbricos",
-        precio: 44490,
-        imagen: "/img/audifonos.png"
+    { id: "HE001", nombre: "Taladro percutor 650W 13mm", precio: 79990, marca: "Makita", categoria: "Herramientas", subcategoria: "Eléctricas", unidad: "Unidad", imagen: "/img/HE001.webp" },
+    { id: "HE002", nombre: "Atornillador inalámbrico 12V (kit)", precio: 104990, marca: "Makita", categoria: "Herramientas", subcategoria: "Eléctricas", unidad: "Unidad", imagen: "/img/HE002.webp" },
+    { id: "HE003", nombre: "Amoladora angular 4.5' 800W", precio: 54990, marca: "Makita", categoria: "Herramientas", subcategoria: "Eléctricas", unidad: "Unidad", imagen: "/img/HE003.webp" },
+    { id: "HE004", nombre: "Sierra circular 7-1/4' 1200W", precio: 72990, marca: "Skil", categoria: "Herramientas", subcategoria: "Eléctricas", unidad: "Unidad", imagen: "/img/HE004.webp" },
+    { id: "HE005", nombre: "Lijadora orbital 180W", precio: 34990, marca: "Black+Decker", categoria: "Herramientas", subcategoria: "Eléctricas", unidad: "Unidad", imagen: "/img/HE005.webp" },
+    { id: "HE006", nombre: "Caladora 500W", precio: 42990, marca: "Skil", categoria: "Herramientas", subcategoria: "Eléctricas", unidad: "Unidad", imagen: "/img/HE006.webp" },
 
-    }
+    { id: "GS001", nombre: "Cañería PVC 1/2 x 6m", precio: 5490, marca: "Tigre", categoria: "Gasfitería", subcategoria: "Tuberías", unidad: "Unidad", imagen: "/img/GS001.jpg" },
+    { id: "GS002", nombre: "Cañería PVC 3/4 x 6m", precio: 7490, marca: "Tigre", categoria: "Gasfitería", subcategoria: "Tuberías", unidad: "Unidad", imagen: "/img/GS002.webp" },
+    { id: "GS003", nombre: "Cañería cobre 1/2 x 5m", precio: 17990, marca: "Codelco", categoria: "Gasfitería", subcategoria: "Tuberías", unidad: "Unidad", imagen: "/img/GS003.webp" },
+    { id: "GS004", nombre: "Codo PVC 1/2 90°", precio: 390, marca: "Tigre", categoria: "Gasfitería", subcategoria: "Uniones", unidad: "Unidad", imagen: "/img/GS004.webp" },
+    { id: "GS005", nombre: "Tee PVC 1/2", precio: 450, marca: "Tigre", categoria: "Gasfitería", subcategoria: "Uniones", unidad: "Unidad", imagen: "/img/GS005.webp" },
+    { id: "GS006", nombre: "Unión doble PVC 1/2", precio: 320, marca: "Tigre", categoria: "Gasfitería", subcategoria: "Uniones", unidad: "Unidad", imagen: "/img/GS006.webp" },
+    { id: "GS007", nombre: "Llave de paso esfera 1/2 latón", precio: 3490, marca: "Emmeti", categoria: "Gasfitería", subcategoria: "Llaves", unidad: "Unidad", imagen: "/img/GS007.webp" },
+    { id: "GS008", nombre: "Llave de paso esfera 3/4 latón", precio: 4990, marca: "Emmeti", categoria: "Gasfitería", subcategoria: "Llaves", unidad: "Unidad", imagen: "/img/GS008.webp" },
+    { id: "GS009", nombre: "Grifería lavamanos monocomando cromo", precio: 22990, marca: "Corona", categoria: "Gasfitería", subcategoria: "Grifería", unidad: "Unidad", imagen: "/img/GS009.webp" },
+    { id: "GS010", nombre: "Grifería cocina monocomando cuello alto", precio: 28990, marca: "Corona", categoria: "Gasfitería", subcategoria: "Grifería", unidad: "Unidad", imagen: "/img/GS010.webp" },
+    { id: "GS011", nombre: "Teflón 3/4 x 12m", precio: 790, marca: "3M", categoria: "Gasfitería", subcategoria: "Sellos", unidad: "Rollo", imagen: "/img/GS011.webp" },
+    { id: "GS012", nombre: "Silicona transparente 280ml", precio: 5490, marca: "Wacker", categoria: "Gasfitería", subcategoria: "Sellos", unidad: "Cartucho", imagen: "/img/GS012.webp" },
 
+    { id: "EL001", nombre: "Cable unipolar 1.5mm² (por metro)", precio: 590, marca: "Condulac", categoria: "Electricidad", subcategoria: "Conductores", unidad: "Metro", imagen: "/img/EL001.webp" },
+    { id: "EL002", nombre: "Cable unipolar 2.5mm² (por metro)", precio: 790, marca: "Condulac", categoria: "Electricidad", subcategoria: "Conductores", unidad: "Metro", imagen: "/img/EL002.webp" },
+    { id: "EL003", nombre: "Cable dúplex paralelo 2x1.5mm² (por metro)", precio: 990, marca: "Condulac", categoria: "Electricidad", subcategoria: "Conductores", unidad: "Metro", imagen: "/img/EL003.webp" },
+    { id: "EL004", nombre: "Enchufe empotrar 16A c/tierra (schuko)", precio: 3690, marca: "Bticino", categoria: "Electricidad", subcategoria: "Enchufes", unidad: "Unidad", imagen: "/img/EL004.webp" },
+    { id: "EL005", nombre: "Enchufe doble empotrar 16A c/tierra", precio: 5490, marca: "Bticino", categoria: "Electricidad", subcategoria: "Enchufes", unidad: "Unidad", imagen: "/img/EL005.webp" },
+    { id: "EL006", nombre: "Interruptor simple empotrar", precio: 3190, marca: "Bticino", categoria: "Electricidad", subcategoria: "Interruptores", unidad: "Unidad", imagen: "/img/EL006.webp" },
+    { id: "EL007", nombre: "Interruptor doble empotrar", precio: 4290, marca: "Bticino", categoria: "Electricidad", subcategoria: "Interruptores", unidad: "Unidad", imagen: "/img/EL007.webp" },
+    { id: "EL008", nombre: "Tablero eléctrico 4 espacios DIN", precio: 22990, marca: "Legrand", categoria: "Electricidad", subcategoria: "Tableros", unidad: "Unidad", imagen: "/img/EL008.jpg" },
+    { id: "EL009", nombre: "Disyuntor termomagnético 16A unipolar", precio: 6490, marca: "Schneider", categoria: "Electricidad", subcategoria: "Tableros", unidad: "Unidad", imagen: "/img/EL009.webp" },
+    { id: "EL010", nombre: "Disyuntor termomagnético 25A unipolar", precio: 6990, marca: "Schneider", categoria: "Electricidad", subcategoria: "Tableros", unidad: "Unidad", imagen: "/img/EL010.webp" },
+    { id: "EL011", nombre: "Ampolleta LED 9W E27 luz fría", precio: 3990, marca: "Philips", categoria: "Electricidad", subcategoria: "Iluminación", unidad: "Unidad", imagen: "/img/EL011.webp" },
+    { id: "EL012", nombre: "Ampolleta LED 12W E27 luz cálida", precio: 4490, marca: "Philips", categoria: "Electricidad", subcategoria: "Iluminación", unidad: "Unidad", imagen: "/img/EL012.webp" },
+    { id: "EL013", nombre: "Panel LED empotrar 18W 22cm", precio: 11490, marca: "Ledvance", categoria: "Electricidad", subcategoria: "Iluminación", unidad: "Unidad", imagen: "/img/EL013.webp" },
+
+    { id: "TR001", nombre: "Tornillo autoperf. 8x1 caja 100 unid.", precio: 2990, marca: "Hilti", categoria: "Tornillería", subcategoria: "Tornillos", unidad: "Caja", imagen: "/img/TR001.webp" },
+    { id: "TR002", nombre: "Tornillo madera 4x40mm caja 100 unid.", precio: 2490, marca: "Hilti", categoria: "Tornillería", subcategoria: "Tornillos", unidad: "Caja", imagen: "/img/TR002.webp" },
+    { id: "TR003", nombre: "Tornillo volcanita 3.5x25mm caja 200 unid.", precio: 3490, marca: "Hilti", categoria: "Tornillería", subcategoria: "Tornillos", unidad: "Caja", imagen: "/img/TR003.webp" },
+    { id: "TR004", nombre: "Taco fischer S6 bolsa 100 unid.", precio: 3190, marca: "Fischer", categoria: "Tornillería", subcategoria: "Tacos", unidad: "Bolsa", imagen: "/img/TR004.webp" },
+    { id: "TR005", nombre: "Taco fischer S8 bolsa 50 unid.", precio: 2890, marca: "Fischer", categoria: "Tornillería", subcategoria: "Tacos", unidad: "Bolsa", imagen: "/img/TR005.webp" },
+    { id: "TR006", nombre: "Perno hex. 3/8 x 2 c/tuerca y golilla", precio: 290, marca: "Granel", categoria: "Tornillería", subcategoria: "Pernos", unidad: "Unidad", imagen: "/img/TR006.jpg" },
+    { id: "TR007", nombre: "Perno de anclaje 10x100mm", precio: 990, marca: "Hilti", categoria: "Tornillería", subcategoria: "Anclajes", unidad: "Unidad", imagen: "/img/TR007.webp" },
+    { id: "TR008", nombre: "Anclaje químico epoxi 300ml", precio: 15990, marca: "Fischer", categoria: "Tornillería", subcategoria: "Anclajes", unidad: "Cartucho", imagen: "/img/TR008.jpg" },
+
+    { id: "MD001", nombre: "Pino cepillado 1x3 x 3m", precio: 4290, marca: "Local", categoria: "Madera", subcategoria: "Pino cepillado", unidad: "Unidad", imagen: "/img/MD001.webp" },
+    { id: "MD002", nombre: "Pino cepillado 2x4 x 3m", precio: 7490, marca: "Local", categoria: "Madera", subcategoria: "Pino cepillado", unidad: "Unidad", imagen: "/img/MD002.webp" },
+    { id: "MD003", nombre: "Terciado estructural 18mm 1.22x2.44m", precio: 34990, marca: "Arauco", categoria: "Madera", subcategoria: "Tableros", unidad: "Plancha", imagen: "/img/MD003.webp" },
+    { id: "MD004", nombre: "MDF 15mm 1.22x2.44m", precio: 27990, marca: "Arauco", categoria: "Madera", subcategoria: "Tableros", unidad: "Plancha", imagen: "/img/MD004.webp" },
+    { id: "MD005", nombre: "OSB 9mm 1.22x2.44m", precio: 18990, marca: "Arauco", categoria: "Madera", subcategoria: "Tableros", unidad: "Plancha", imagen: "/img/MD005.webp" },
+    { id: "MD006", nombre: "Volcanita estándar 10mm 1.2x2.4m", precio: 8990, marca: "Volcán", categoria: "Madera", subcategoria: "Tableros", unidad: "Plancha", imagen: "/img/MD006.webp" },
+    { id: "MD007", nombre: "Volcanita resistente humedad 10mm", precio: 11990, marca: "Volcán", categoria: "Madera", subcategoria: "Tableros", unidad: "Plancha", imagen: "/img/MD007.webp" },
+
+    { id: "SE001", nombre: "Casco seguridad blanco", precio: 6990, marca: "3M", categoria: "Seguridad", subcategoria: "EPP", unidad: "Unidad", imagen: "/img/SE001.webp" },
+    { id: "SE002", nombre: "Guantes de cuero talla L", precio: 3690, marca: "3M", categoria: "Seguridad", subcategoria: "EPP", unidad: "Par", imagen: "/img/SE002.webp" },
+    { id: "SE003", nombre: "Antiparras de seguridad clear", precio: 2490, marca: "3M", categoria: "Seguridad", subcategoria: "EPP", unidad: "Unidad", imagen: "/img/SE003.webp" },
+    { id: "SE004", nombre: "Mascarilla respirador N95 (caja x10)", precio: 10990, marca: "3M", categoria: "Seguridad", subcategoria: "EPP", unidad: "Caja", imagen: "/img/SE004.avif" },
+    { id: "SE005", nombre: "Arnés de seguridad 1 punto", precio: 34990, marca: "3M", categoria: "Seguridad", subcategoria: "EPP", unidad: "Unidad", imagen: "/img/SE005.webp" },
+
+    { id: "JA001", nombre: "Manguera riego 3/4 x 25m", precio: 22990, marca: "Tigre", categoria: "Jardín", subcategoria: "Mangueras", unidad: "Unidad", imagen: "/img/JA001.webp" },
+    { id: "JA002", nombre: "Manguera expandible 30m", precio: 28990, marca: "Bestway", categoria: "Jardín", subcategoria: "Mangueras", unidad: "Unidad", imagen: "/img/JA002.webp" },
+    { id: "JA003", nombre: "Pistola de riego 8 modos", precio: 5490, marca: "Bestway", categoria: "Jardín", subcategoria: "Mangueras", unidad: "Unidad", imagen: "/img/JA003.webp" },
+    { id: "JA004", nombre: "Pala punta redonda #2 con mango", precio: 10990, marca: "Corona", categoria: "Jardín", subcategoria: "Herramientas", unidad: "Unidad", imagen: "/img/JA004.webp" },
+    { id: "JA005", nombre: "Rastrillo 16 dientes con mango", precio: 9490, marca: "Corona", categoria: "Jardín", subcategoria: "Herramientas", unidad: "Unidad", imagen: "/img/JA005.webp" }
 ]
 
-function DetalleProducto(){
+function DetalleProducto() {
 
     // Obtenemos el ID que viene de la URL
     const { id } = useParams()
+
+    // Cantidad que el usuario quiere agregar
+    const [cantidad, setCantidad] = useState(1)
 
     // Buscamos el producto que corresponde al ID recibido
     const producto = productos.find(
         producto => producto.id === id
     )
 
+    // Si el ID no existe, mostramos un aviso
+    if (!producto) {
+        return (
+            <div className="container my-5 text-center">
+                <h2>Producto no encontrado</h2>
+                <BotonVolver />
+            </div>
+        )
+    }
+
+    // Guarda el producto en el carrito (localStorage)
+    const agregarAlCarrito = () => {
+        const guardado = localStorage.getItem('carritoFerreteria')
+        const carrito = guardado ? JSON.parse(guardado) : []
+
+        // Si el producto ya está en el carrito, solo suma la cantidad
+        const existente = carrito.find((item: { id: string }) => item.id === producto.id)
+
+        if (existente) {
+            existente.cantidad += cantidad
+        } else {
+            carrito.push({
+                id: producto.id,
+                nombre: producto.nombre,
+                precio: producto.precio,
+                cantidad: cantidad,
+                imagen: producto.imagen
+            })
+        }
+
+        localStorage.setItem('carritoFerreteria', JSON.stringify(carrito))
+        alert("Producto añadido al carrito")
+    }
+
     return (
-        <div>
-            <h1>Detalle del producto</h1>
+        <div className="container my-5">
 
-            <img
-                src = {producto?.imagen}
-                alt = {producto?.titulo}
-                style = {{ width: '300px '}}
-            />
+            <div className="bg-white p-4 p-md-5 rounded shadow-sm">
 
-            <h2>{producto?.titulo}</h2>
-            <p>{producto?.descripcion}</p>
-            <p>{producto?.precio}</p>
+                <div className="row align-items-center">
 
-            <BotonVolver />
+                    {/* Imagen a la izquierda */}
+                    <div className="col-md-6 text-center mb-4 mb-md-0">
+                        <img
+                            src={producto.imagen}
+                            alt={producto.nombre}
+                            className="img-detalle-producto"
+                        />
+                    </div>
+
+                    {/* Información a la derecha */}
+                    <div className="col-md-6">
+
+                        <p className="text-muted mb-1">Código: {producto.id}</p>
+
+                        <h2 className="detalle-titulo">{producto.nombre}</h2>
+
+                        <p className="precio-detalle">
+                            ${producto.precio.toLocaleString('es-CL')}
+                        </p>
+
+                        <hr />
+
+                        <h5 className="titulo-especificaciones">Especificaciones Técnicas:</h5>
+                        <ul>
+                            <li>Marca: {producto.marca}</li>
+                            <li>Categoría: {producto.categoria}</li>
+                            <li>Subcategoría: {producto.subcategoria}</li>
+                            <li>Unidad de venta: {producto.unidad}</li>
+                        </ul>
+
+                        {/* Cantidad */}
+                        <div className="d-flex align-items-center gap-3 my-4">
+                            <label htmlFor="cantidad" className="fw-bold">Cantidad</label>
+                            <input
+                                type="number"
+                                id="cantidad"
+                                className="form-control ancho-cantidad-detalle"
+                                min="1"
+                                value={cantidad}
+                                onChange={(e) => setCantidad(Math.max(1, Number(e.target.value)))}
+                            />
+                        </div>
+
+                        <button
+                            className="btn btn-dark w-100 btn-lg"
+                            onClick={agregarAlCarrito}
+                        >
+                            Añadir al carrito
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div className="mt-4">
+                <BotonVolver />
+            </div>
 
         </div>
-
     )
-    
 }
 
 export default DetalleProducto
