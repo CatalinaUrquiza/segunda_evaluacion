@@ -8,6 +8,7 @@ import DetalleProducto from './paginas/DetalleProducto'
 import Login from './paginas/Login'
 import Blogs from './paginas/Blogs'
 import Carrito from './paginas/Carrito'
+import Ofertas from './paginas/Ofertas'
 
 function App() {
 
@@ -50,6 +51,11 @@ function App() {
         <Route
           path = "/carrito"
           element = {<Carrito />}
+        />
+
+        <Route
+          path = "/ofertas"
+          element = {<Ofertas />}
         />
 
         {/* Ruta dinamica para mostrar el detalle segun el id del producto */}

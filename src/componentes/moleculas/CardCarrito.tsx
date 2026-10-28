@@ -2,13 +2,14 @@ interface CardCarritoProps {
     id: string;
     nombre: string;
     precio: number;
+    precioOriginal?: number;
     cantidad: number;
     imagen: string;
     alSumar: () => void;
     alRestar: () => void;
 }
 
-function CardCarrito({ id, nombre, precio, cantidad, imagen, alSumar, alRestar }: CardCarritoProps) {
+function CardCarrito({ id, nombre, precio, precioOriginal, cantidad, imagen, alSumar, alRestar }: CardCarritoProps) {
 
     return (
         <div className="card shadow-sm border border-secondary">
@@ -34,7 +35,15 @@ function CardCarrito({ id, nombre, precio, cantidad, imagen, alSumar, alRestar }
                             </div>
 
                             <div className="d-flex flex-column align-items-end col-12 col-md-5 mt-2 mt-md-0">
-                                <p className="fw-bold mb-2 fs-5 text-dark">
+                                {precioOriginal && (
+                                    <div className="d-flex align-items-center gap-2">
+                                        <span className="badge bg-danger">Oferta</span>
+                                        <span className="text-muted text-decoration-line-through">
+                                            ${precioOriginal.toLocaleString('es-CL')}
+                                        </span>
+                                    </div>
+                                )}
+                                <p className={`fw-bold mb-2 fs-5 ${precioOriginal ? 'text-danger' : 'text-dark'}`}>
                                     ${precio.toLocaleString('es-CL')}
                                 </p>
 

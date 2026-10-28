@@ -1,41 +1,29 @@
-import { useSearchParams } from 'react-router-dom'
 import Boton from '../atomos/Boton'
 
 interface CardProps {
     id: string;
     titulo: string;
     precio: number;
+    precioOferta?: number;   // opcional: solo si el producto está en oferta
     imagen: string;
 }
 
-// Prefijos de ID que pertenecen a cada categoría
-const categorias: { [categoria: string]: string[] } = {
-    construccion: ["MC"],
-    pinturas: ["PT"],
-    herramientas: ["HM", "HE"],
-    gasfiteria: ["GS"],
-    electricidad: ["EL"],
-    tornilleria: ["TR"],
-    madera: ["MD"],
-    seguridad: ["SE"],
-    jardin: ["JA"]
-}
+function CardProducto({ id, titulo, precio, precioOferta, imagen }: CardProps) {
 
-function CardProducto({ id, titulo, precio, imagen }: CardProps) {
-
-    // Lee la categoría de la URL (por ejemplo /productos?cat=pinturas)
-    const [params] = useSearchParams()
-    const categoria = params.get("cat")
-
-    // Si hay una categoría válida y este producto no es de ella, no se muestra
-    if (categoria && categorias[categoria] && !categorias[categoria].includes(id.slice(0, 2))) {
-        return null
-    }
+    // Porcentaje de descuento (solo si hay oferta)
+    const descuento = precioOferta ? Math.round((1 - precioOferta / precio) * 100) : 0
 
     return (
         <div className="col">
 
-            <div className="card h-100 text-center">
+            <div className="card h-100 text-center position-relative">
+
+                {/* Insignia de descuento, solo si está en oferta */}
+                {precioOferta && (
+                    <span className="badge bg-danger position-absolute top-0 start-0 m-2 fs-6">
+                        -{descuento}%
+                    </span>
+                )}
 
                 <img
                     src={imagen}
@@ -49,9 +37,22 @@ function CardProducto({ id, titulo, precio, imagen }: CardProps) {
                         {titulo}
                     </h5>
 
-                    <p className="card-text">
-                        ${precio}
-                    </p>
+                    {precioOferta ? (
+                        <>
+                            <p className="card-text mb-1">
+                                <span className="text-muted text-decoration-line-through">
+                                    ${precio.toLocaleString('es-CL')}
+                                </span>
+                            </p>
+                            <p className="card-text fw-bold fs-5 text-danger">
+                                ${precioOferta.toLocaleString('es-CL')}
+                            </p>
+                        </>
+                    ) : (
+                        <p className="card-text fs-5">
+                            ${precio.toLocaleString('es-CL')}
+                        </p>
+                    )}
 
                     {/* Empuja el botón hacia abajo para alinear todos los botones */}
                     <div className="mt-auto">

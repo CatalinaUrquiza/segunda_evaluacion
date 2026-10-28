@@ -29,6 +29,10 @@ function Navbar() {
                         Productos
                     </Link>
 
+                    <Link className="nav-link text-white" to="/ofertas">
+                        Ofertas
+                    </Link>
+
                     <Link className = "nav-link text-white" to = "/quienesSomos">
                         Quiénes Somos
                     </Link>

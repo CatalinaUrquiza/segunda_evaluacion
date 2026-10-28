@@ -7,6 +7,7 @@ interface ItemCarrito {
     id: string;
     nombre: string;
     precio: number;
+    precioOriginal?: number;
     cantidad: number;
     imagen: string;
 }
@@ -72,6 +73,7 @@ function Carrito() {
                                 id = {p.id}
                                 nombre = {p.nombre}
                                 precio = {p.precio}
+                                precioOriginal = {p.precioOriginal}
                                 cantidad = {p.cantidad}
                                 imagen = {p.imagen}
                                 alSumar = {() => cambiarCantidad(index, 1)}
