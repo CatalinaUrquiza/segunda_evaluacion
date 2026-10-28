@@ -1,6 +1,15 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { obtenerCarrito, calcularTotal, suscribirCarrito } from '../../utils/carrito'
 
 function Navbar() {
+
+    // Total del carrito; se actualiza solo cuando se añade, quita o cambia un producto
+    const [total, setTotal] = useState(() => calcularTotal(obtenerCarrito()))
+
+    useEffect(() => {
+        return suscribirCarrito(() => setTotal(calcularTotal(obtenerCarrito())))
+    }, [])
 
     return(
 
@@ -49,12 +58,17 @@ function Navbar() {
                         Login
                     </Link>
 
-                    <Link className="nav-link" to="/carrito">
+                    <Link className="nav-link text-white d-flex align-items-center gap-2" to="/carrito">
                         <img
                             src="/img/Carrito_Icono.png"
                             className="img-carrito"
                             alt="Carrito"
                         />
+                        {total > 0 && (
+                            <span className="badge bg-success">
+                                ${total.toLocaleString('es-CL')}
+                            </span>
+                        )}
                     </Link>
                 
                 </div>
