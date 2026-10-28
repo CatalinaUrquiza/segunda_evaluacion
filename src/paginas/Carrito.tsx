@@ -1,51 +1,35 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import CardCarrito from '../componentes/moleculas/CardCarrito'
 import ResumenCarrito from '../componentes/moleculas/ResumenCarrito'
-
-interface ItemCarrito {
-    id: string;
-    nombre: string;
-    precio: number;
-    precioOriginal?: number;
-    cantidad: number;
-    imagen: string;
-}
+import { obtenerCarrito, cambiarCantidad, quitarProducto, vaciarCarrito, calcularTotal } from '../utils/carrito'
+import type { ItemCarrito } from '../utils/tipos'
 
 function Carrito() {
 
+    const navigate = useNavigate()
+
     // Carga el carrito desde la memoria del navegador
-    const [carrito, setCarrito] = useState<ItemCarrito[]>(() => {
-        const guardado = localStorage.getItem('carritoFerreteria')
-        return guardado ? JSON.parse(guardado) : []
-    })
-
-    // Suma o resta cantidad; si llega a 0, el producto se elimina
-    const cambiarCantidad = (index: number, cambio: number) => {
-        const nuevoCarrito = [...carrito]
-        nuevoCarrito[index] = { ...nuevoCarrito[index], cantidad: nuevoCarrito[index].cantidad + cambio }
-
-        if (nuevoCarrito[index].cantidad <= 0) {
-            nuevoCarrito.splice(index, 1)
-        }
-
-        localStorage.setItem('carritoFerreteria', JSON.stringify(nuevoCarrito))
-        setCarrito(nuevoCarrito)
-    }
+    const [carrito, setCarrito] = useState<ItemCarrito[]>(obtenerCarrito)
 
     // Calcula el total
-    let total = 0
-    carrito.forEach((producto) => {
-        total += producto.precio * producto.cantidad
-    })
+    const total = calcularTotal(carrito)
 
-    // Botón pagar no habilitado por ahora
-    const pagar = () => {
+    // Vacía todo el carrito (pide confirmación)
+    const limpiar = () => {
+        if (carrito.length === 0) return
+        if (confirm("¿Quieres vaciar el carrito?")) {
+            setCarrito(vaciarCarrito())
+        }
+    }
+
+    // Lleva a la pantalla de compra
+    const comprar = () => {
         if (carrito.length === 0) {
             alert("No tienes productos en el carrito para pagar.")
             return
         }
-        alert("Botón no habilitado por el momento.")
+        navigate("/checkout")
     }
 
     return (
@@ -67,7 +51,7 @@ function Carrito() {
                             </div>
                         )}
 
-                        {carrito.map((p, index) => (
+                        {carrito.map((p) => (
                             <CardCarrito
                                 key = {p.id}
                                 id = {p.id}
@@ -76,8 +60,9 @@ function Carrito() {
                                 precioOriginal = {p.precioOriginal}
                                 cantidad = {p.cantidad}
                                 imagen = {p.imagen}
-                                alSumar = {() => cambiarCantidad(index, 1)}
-                                alRestar = {() => cambiarCantidad(index, -1)}
+                                alSumar = {() => setCarrito(cambiarCantidad(p.id, 1))}
+                                alRestar = {() => setCarrito(cambiarCantidad(p.id, -1))}
+                                alEliminar = {() => setCarrito(quitarProducto(p.id))}
                             />
                         ))}
 
@@ -86,7 +71,7 @@ function Carrito() {
 
                 {/* COLUMNA DERECHA: RESUMEN Y PAGO */}
                 <div className="col-lg-4">
-                    <ResumenCarrito total={total} alPagar={pagar} />
+                    <ResumenCarrito total={total} alPagar={comprar} alLimpiar={limpiar} />
                 </div>
 
             </div>

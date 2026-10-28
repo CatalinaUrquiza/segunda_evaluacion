@@ -12,17 +12,24 @@ export function obtenerOrden(numero) {
     return obtenerOrdenes().find(o => o.numero === numero)
 }
 
+// Número que tendrá la próxima orden (empieza en 1001)
+export function proximoNumeroOrden() {
+    const ordenes = obtenerOrdenes()
+    return ordenes.length > 0 ? Math.max(...ordenes.map(o => o.numero)) + 1 : 1001
+}
+
 // Se llama al finalizar la compra
-// datos = { correo, nombre, items: [{ id, nombre, precio, cantidad }] }
+// datos = { correo, nombre, direccion, items: [{ id, nombre, precio, cantidad }] }
 export function crearOrden(datos) {
     const ordenes = obtenerOrdenes()
-    const numero = ordenes.length > 0 ? Math.max(...ordenes.map(o => o.numero)) + 1 : 1001
+    const numero = proximoNumeroOrden()
 
     const orden = {
         numero,
         fecha: new Date().toISOString(),
         correo: datos.correo,
         nombre: datos.nombre,
+        direccion: datos.direccion || '',
         items: datos.items,
         total: datos.items.reduce((suma, i) => suma + i.precio * i.cantidad, 0),
         estado: 'Pendiente'

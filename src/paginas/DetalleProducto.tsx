@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import BotonVolver from '../componentes/atomos/BotonVolver'
 import BotonAgregar from '../componentes/atomos/BotonAgregar'
 import { obtenerProductos } from '../datos/productos'
+import { agregarProducto } from '../utils/carrito'
 
 function DetalleProducto() {
 
@@ -30,29 +31,10 @@ function DetalleProducto() {
     // Precio final: el de oferta si existe, si no el normal
     const precioFinal = producto.precioOferta ?? producto.precio
 
-    // Guarda el producto en el carrito (localStorage)
+    // Guarda el producto en el carrito (respeta el stock disponible)
     const agregarAlCarrito = () => {
-        const guardado = localStorage.getItem('carritoFerreteria')
-        const carrito = guardado ? JSON.parse(guardado) : []
-
-        // Si el producto ya está en el carrito, solo suma la cantidad
-        const existente = carrito.find((item: { id: string }) => item.id === producto.id)
-
-        if (existente) {
-            existente.cantidad += cantidad
-        } else {
-            carrito.push({
-                id: producto.id,
-                nombre: producto.nombre,
-                precio: precioFinal,
-                precioOriginal: producto.precioOferta ? producto.precio : undefined,
-                cantidad: cantidad,
-                imagen: producto.imagen
-            })
-        }
-
-        localStorage.setItem('carritoFerreteria', JSON.stringify(carrito))
-        alert("Producto añadido al carrito")
+        const resultado = agregarProducto(producto, cantidad)
+        alert(resultado.mensaje)
     }
 
     return (
@@ -95,6 +77,7 @@ function DetalleProducto() {
                             <li>Marca: {producto.marca}</li>
                             <li>Subcategoría: {producto.subcategoria}</li>
                             <li>Unidad de venta: {producto.unidad}</li>
+                            <li>Stock disponible: {producto.stock}</li>
                         </ul>
 
                         {/* Cantidad */}

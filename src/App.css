@@ -256,3 +256,10 @@ h2 {
     border: 1px solid #e9ecef;
     border-radius: 12px;
 }
+
+/* ===== Compra (checkout y resultado del pago) ===== */
+.img-tabla-producto {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}

@@ -7,9 +7,10 @@ interface CardCarritoProps {
     imagen: string;
     alSumar: () => void;
     alRestar: () => void;
+    alEliminar: () => void;
 }
 
-function CardCarrito({ id, nombre, precio, precioOriginal, cantidad, imagen, alSumar, alRestar }: CardCarritoProps) {
+function CardCarrito({ id, nombre, precio, precioOriginal, cantidad, imagen, alSumar, alRestar, alEliminar }: CardCarritoProps) {
 
     return (
         <div className="card shadow-sm border border-secondary">
@@ -61,6 +62,14 @@ function CardCarrito({ id, nombre, precio, precioOriginal, cantidad, imagen, alS
                                         +
                                     </button>
                                 </div>
+
+                                <small className="text-muted mt-2">
+                                    Subtotal: ${(precio * cantidad).toLocaleString('es-CL')}
+                                </small>
+
+                                <button className="btn btn-sm btn-outline-danger mt-2" type="button" onClick={alEliminar}>
+                                    Eliminar
+                                </button>
                             </div>
 
                         </div>

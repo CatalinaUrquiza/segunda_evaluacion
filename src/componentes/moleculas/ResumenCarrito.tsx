@@ -1,9 +1,10 @@
 interface ResumenProps {
     total: number;
     alPagar: () => void;
+    alLimpiar: () => void;
 }
 
-function ResumenCarrito({ total, alPagar }: ResumenProps) {
+function ResumenCarrito({ total, alPagar, alLimpiar }: ResumenProps) {
 
     return (
         <div className="p-4 bg-white rounded shadow-sm border border-secondary borde-grueso">
@@ -33,7 +34,14 @@ function ResumenCarrito({ total, alPagar }: ResumenProps) {
                 className="btn btn-success w-100 text-uppercase fw-bold p-3 btn-pagar-verde"
                 onClick={alPagar}
             >
-                PAGAR
+                Comprar ahora
+            </button>
+
+            <button
+                className="btn btn-outline-secondary w-100 mt-2"
+                onClick={alLimpiar}
+            >
+                Limpiar carrito
             </button>
 
         </div>

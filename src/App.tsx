@@ -16,22 +16,9 @@ import AdminProductos from './paginas/admin/AdminProductos'
 import AdminProductoForm from './paginas/admin/AdminProductoForm'
 import AdminOrdenes from './paginas/admin/AdminOrdenes'
 import AdminBoleta from './paginas/admin/AdminBoleta'
-import AdminCategorias from './paginas/admin/AdminCategorias'
-import AdminCategoriaForm from './paginas/admin/AdminCategoriaForm'
-import AdminUsuarios from './paginas/admin/AdminUsuarios'
-import AdminUsuarioForm from './paginas/admin/AdminUsuarioForm'
-import AdminUsuarioDetalle from './paginas/admin/AdminUsuarioDetalle'
-
-<Route path="/admin" element={<AdminLayout />}>
-    <Route index element={<AdminDashboard />} />
-    <Route path="productos" element={<AdminProductos />} />
-    <Route path="productos/nuevo" element={<AdminProductoForm />} />
-    <Route path="productos/editar/:id" element={<AdminProductoForm />} />
-
-    {/* Nuevas */}
-    <Route path="ordenes" element={<AdminOrdenes />} />
-    <Route path="ordenes/:numero" element={<AdminBoleta />} />
-</Route>
+import Checkout from './paginas/Checkout'
+import PagoCorrecto from './paginas/PagoCorrecto'
+import PagoError from './paginas/PagoError'
 
 function App() {
 
@@ -90,6 +77,22 @@ function App() {
           element = {<Carrito />}
         />
 
+        {/* Compra: formulario de pago y resultado */}
+        <Route
+          path = "/checkout"
+          element = {<Checkout />}
+        />
+
+        <Route
+          path = "/pago-correcto"
+          element = {<PagoCorrecto />}
+        />
+
+        <Route
+          path = "/pago-error"
+          element = {<PagoError />}
+        />
+
         {/* Ruta dinamica para mostrar el detalle segun el id del producto */}
         <Route
           path = "/producto/:id"
@@ -102,20 +105,9 @@ function App() {
           <Route path = "productos" element = {<AdminProductos />} />
           <Route path = "productos/nuevo" element = {<AdminProductoForm />} />
           <Route path = "productos/editar/:id" element = {<AdminProductoForm />} />
-
-          {/* Categorías */}
-          <Route path="categorias" element={<AdminCategorias />} />
-          <Route path="categorias/nueva" element={<AdminCategoriaForm />} />
-          <Route path="categorias/editar/:id" element={<AdminCategoriaForm />} />
-
-          {/* Usuarios */}
-          <Route path="usuarios" element={<AdminUsuarios />} />
-          <Route path="usuarios/nuevo" element={<AdminUsuarioForm />} />
-          <Route path="usuarios/editar/:correo" element={<AdminUsuarioForm />} />
-          <Route path="usuarios/:correo" element={<AdminUsuarioDetalle />} />
+          <Route path = "ordenes" element = {<AdminOrdenes />} />
+          <Route path = "ordenes/:numero" element = {<AdminBoleta />} />
         </Route>
-
-        
 
       </Routes>
     </>
