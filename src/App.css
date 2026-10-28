@@ -96,3 +96,57 @@ h2 {
 .ancho-cantidad-detalle {
     width: 90px;
 }
+
+/* ===== Panel de administración ===== /
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #212529;   / mismo tono oscuro de la Navbar /
+}
+
+.admin-sidebar .nav-link {
+    color: #dee2e6;
+    border-radius: 0.375rem;
+}
+
+.admin-sidebar .nav-link:hover {
+    background-color: #343a40;
+    color: white;
+}
+
+.admin-sidebar .nav-link.active {
+    background-color: #ff6600;   / naranja del logo /
+    color: white;
+}
+
+.admin-main {
+    flex: 1;
+    min-width: 0;
+    background-color: #f8f9fa;
+}
+
+.admin-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: white;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/ Tu regla global centra y pone en mayúsculas los h1/h2; en el panel los dejamos normales */
+.admin-main h1,
+.admin-main h2 {
+    text-align: left;
+    text-transform: none;
+    font-size: 1.6rem;
+    margin-bottom: 0.25rem;
+}
