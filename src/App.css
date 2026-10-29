@@ -263,3 +263,18 @@ h2 {
     height: 48px;
     object-fit: contain;
 }
+
+/* ===== Botón "Panel admin" de la Navbar ===== */
+.btn.btn-panel {
+    background-color: #f26b1d;
+    border-color: #f26b1d;
+    color: white;
+}
+
+.btn.btn-panel:hover,
+.btn.btn-panel:focus,
+.btn.btn-panel:active {
+    background-color: #d95a10;
+    border-color: #d95a10;
+    color: white;
+}
