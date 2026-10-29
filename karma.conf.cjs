@@ -15,15 +15,18 @@ module.exports = function (config) {
         ],
 
         files: [
-            // Define "process" para las librerías que lo consultan en el navegador
             'test/setup-process.js',
-            // Todas las pruebas: test/algo.spec.ts o test/algo.spec.tsx
-            { pattern: 'test/**/*.spec.{ts,tsx}', watched: false }
+            'test/renderizado.spec.tsx',
+            'test/propiedades.spec.tsx',
+            'test/estado.spec.tsx',
+            'test/eventos.spec.tsx',
+            'test/carrito.spec.ts'
         ],
 
         // esbuild compila TypeScript/JSX y junta las dependencias en un solo bundle
         preprocessors: {
-            'test/**/*.spec.{ts,tsx}': ['esbuild']
+            'test/**/*.spec.tsx': ['esbuild'],
+            'test/**/*.spec.ts': ['esbuild']
         },
 
         esbuild: {
